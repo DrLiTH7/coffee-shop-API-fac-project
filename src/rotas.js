@@ -2,7 +2,7 @@ const express = require('express');
 const rotas = express();
 const verificaLogin = require('./autenticacao')
 const { cadastrarUsuario, login, logout, atualizarUsuario, detalharUsuario } = require('./controladores/usuario');
-const { listarTransacao, cadastrarTransacao, excluirTransacao, detalharTransacao, listarProdutos, adicionarProduto, deletarProduto, atualizarTransacao } = require('./controladores/transacao');
+const { listarTransacao, cadastrarTransacao, detalharTransacao, listarProdutos, adicionarProduto, deletarProduto, atualizarTransacao } = require('./controladores/transacao');
 
 rotas.post('/usuario', cadastrarUsuario); // User and Admin
 rotas.post('/login', login) // User and admin
@@ -18,7 +18,7 @@ rotas.delete('/produtos', deletarProduto) // Admin
 rotas.get('/transacao', listarTransacao) // User and Admin
 rotas.get('/transacao/:id', detalharTransacao) // User and Admin
 rotas.post('/transacao', cadastrarTransacao) // User and Admin
-rotas.delete('/transacao/:id', excluirTransacao) // Admin
+// rotas.delete('/transacao/:id', excluirTransacao) // Admin
 rotas.put('/transacao/:id', atualizarTransacao) // Admin
 
 

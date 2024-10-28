@@ -9,7 +9,7 @@ CREATE TABLE usuarios (
 
 CREATE TABLE produtos (
 	id serial primary key,
-  produto, text,
+  produto text,
   descricao text
 );
 

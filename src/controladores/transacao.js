@@ -120,6 +120,30 @@ const detalharTransacao = async (req, res) => {
   }
 };
 
+
+const atualizarTransacao = async (req, res) => {
+  const { id: transacaoId } = req.params;
+  const { descricao, valor, data } = req.body;
+  const { id: idUsuarioLogado } = req.usuario;
+  
+  try {
+    if (!validarCampos({ descricao, valor, data })) {
+      return res.status(400).json({ mensagem: "Todos os campos devem ser preenchidos" });
+    }
+    
+    if (!validarData(data)) {
+      return res.status(400).json({ mensagem: "Data não está com formato válido" });
+    }
+    
+    await conexao.query("UPDATE transacoes SET descricaoCompra = $1, valor = $2, data = $3 WHERE id = $4 AND usuario_id = $5;", [descricao, valor, data, transacaoId, idUsuarioLogado]);
+    
+    return res.status(204).json();
+  } catch (error) {
+    console.error("Erro ao atualizar transação:", error);
+    return res.status(500).json({ mensagem: "Erro interno ao atualizar transação" });
+  }
+};
+
 // const excluirTransacao = async (req, res) => {
 //   const { id: idTransacao } = req.params;
 //   const { id: idUsuarioLogado } = req.usuario;
@@ -138,35 +162,11 @@ const detalharTransacao = async (req, res) => {
 //   }
 // };
 
-const atualizarTransacao = async (req, res) => {
-  const { id: transacaoId } = req.params;
-  const { descricao, valor, data } = req.body;
-  const { id: idUsuarioLogado } = req.usuario;
-  
-  try {
-    if (!validarCampos({ descricao, valor, data })) {
-      return res.status(400).json({ mensagem: "Todos os campos devem ser preenchidos" });
-    }
-    
-    if (!validarData(data)) {
-      return res.status(400).json({ mensagem: "Data não está com formato válido" });
-    }
-    
-    await conexao.query("UPDATE transacoes SET descricaoCompra = $1, valor = $2, data = $3 WHERE id = $4 AND usuario_id = $5;", [descricao, valor, data, transacaoId, idUsuarioLogado]);
-
-    return res.status(204).json();
-  } catch (error) {
-    console.error("Erro ao atualizar transação:", error);
-    return res.status(500).json({ mensagem: "Erro interno ao atualizar transação" });
-  }
-};
-
 module.exports = {
   adicionarProduto,
   deletarProduto,
   listarTransacao,
   cadastrarTransacao,
-  excluirTransacao,
   detalharTransacao,
   listarProdutos,
   atualizarTransacao,
