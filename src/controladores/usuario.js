@@ -5,32 +5,65 @@ const senhaJwt = require("../secreto");
 const { validarCampos } = require("./utilitarios");
 
 const cadastrarUsuario = async (req, res) => {
-  const { nome, email, senha } = req.body;
+  const { 
+    nome, 
+    telefone, 
+    email, 
+    rua, 
+    numero_casa, 
+    bairro, 
+    cidade, 
+    estado, 
+    cep, 
+    complemento, 
+    senha 
+  } = req.body;
 
   try {
-    if (!validarCampos({ nome, email, senha })) {
-      return res.status(400).json({ mensagem: "Todos os campos devem ser preenchidos" });
+    if (!nome || !email || !senha) {
+      return res.status(400).json({ mensagem: "Os campos nome, email e senha são obrigatórios." });
     }
-    
-    const verificarEmail = await conexao.query("SELECT * FROM usuarios WHERE email = $1",[email]);
 
-    if (verificarEmail.rowCount === 1) {
+    const verificarEmail = await conexao.query("SELECT * FROM usuario WHERE email = $1", [email]);
+
+    if (verificarEmail.rowCount > 0) {
       return res.status(401).json({ mensagem: "Já existe usuário cadastrado com o e-mail informado." });
     }
 
     const senhaCriptografada = await bcrypt.hash(senha, 10);
 
-    const { rows } = await conexao.query( "INSERT INTO usuarios (nome, email, senha) VALUES ($1, $2, $3) RETURNING *",
-    [nome, email, senhaCriptografada] );
+    const query = `
+      INSERT INTO usuario (
+        nome, telefone, email, rua, numero_casa, bairro, cidade, estado, cep, complemento, senha
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+      RETURNING id, nome, telefone, email, rua, numero_casa, bairro, cidade, estado, cep, complemento
+    `;
 
-    const { senha: _, ...usuario } = rows[0];
+    const valores = [
+      nome, 
+      telefone, 
+      email, 
+      rua, 
+      numero_casa, 
+      bairro, 
+      cidade, 
+      estado, 
+      cep, 
+      complemento, 
+      senhaCriptografada
+    ];
+
+    const { rows } = await conexao.query(query, valores);
+
+    const usuario = rows[0];
 
     return res.status(201).json(usuario);
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ mensagem: 'Erro interno'} )
+    console.error(error);
+    return res.status(500).json({ mensagem: "Erro interno no servidor." });
   }
 };
+
 
 const login = async (req, res) => {
   const { email, senha } = req.body;
