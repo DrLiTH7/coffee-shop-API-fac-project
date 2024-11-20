@@ -166,7 +166,6 @@ module.exports = {
   deletarProduto,
   listarTransacao,
   cadastrarTransacao,
-  excluirTransacao,
   detalharTransacao,
   listarProdutos,
   atualizarTransacao,
