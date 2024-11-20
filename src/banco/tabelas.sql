@@ -31,4 +31,11 @@ CREATE TABLE avaliacoes (
   data_avaliacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE carrinhos (
+  id SERIAL PRIMARY KEY,
+  usuario_id INT NOT NULL REFERENCES usuarios(id), -- Relacionado ao usuário
+  produto_id INT NOT NULL REFERENCES produtos(id), -- Relacionado ao produto
+  quantidade INT NOT NULL DEFAULT 1, -- Quantidade do produto no carrinho
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Data de inserção
+);
 

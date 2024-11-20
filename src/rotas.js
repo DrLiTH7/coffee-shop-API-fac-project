@@ -4,6 +4,7 @@ const verificaLogin = require('./autenticacao')
 const { cadastrarUsuario, login, logout, atualizarUsuario, detalharUsuario } = require('./controladores/usuario');
 const { listarTransacao, cadastrarTransacao, detalharTransacao, listarProdutos, adicionarProduto, deletarProduto, atualizarTransacao } = require('./controladores/transacao');
 const { adicionarAvaliacao, listarAvaliacoes,  deleteAvaliacao } = require('./controladores/avaliacao');
+const { adicionarAoCarrinho,listarCarrinho, removerDoCarrinho   } = require('./controladores/carrinho');
 
 
 rotas.post('/usuario', cadastrarUsuario); // User and Admin
@@ -29,6 +30,10 @@ rotas.get('/produtos/:produtoID/avaliacoes', listarAvaliacoes); // id_usuario na
 rotas.delete('/avaliacoes/:avaliacaoID', deleteAvaliacao);
 
 
+rotas.post('/carrinho', adicionarAoCarrinho); // Adicionar ao carrinho
+rotas.get('/carrinho', listarCarrinho);       // Listar itens do carrinho
+rotas.delete('/carrinho', removerDoCarrinho); // Remover item do carrinho
+//rotas.delete('/carrinho/limpar', limparCarrinho); // Limpar o carrinho
 
 
 module.exports = rotas
