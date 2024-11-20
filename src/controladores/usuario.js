@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const senhaJwt = require("../secreto");
 const { validarCampos } = require("./utilitarios");
+const emailService = require("../emailService")
 
 const cadastrarUsuario = async (req, res) => {
   const { 
@@ -56,6 +57,18 @@ const cadastrarUsuario = async (req, res) => {
     const { rows } = await conexao.query(query, valores);
 
     const usuario = rows[0];
+
+    emailService(
+      email,"Bem vindo à Cafeteria Gostinho de Café", 
+      `
+      Bem vindo, ${nome}!
+
+      Ficamos felizes com você aqui, que tal um café para aquecer a alma?
+      Sinta-se à vontade!
+
+      Equipe Gostinho de Café
+      `
+    )
 
     return res.status(201).json(usuario);
   } catch (error) {
