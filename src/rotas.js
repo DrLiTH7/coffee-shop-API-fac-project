@@ -22,6 +22,10 @@ rotas.get('/transacao/:id', detalharTransacao) // User and Admin
 rotas.post('/transacao', cadastrarTransacao) // User and Admin
 rotas.put('/transacao/:id', atualizarTransacao) // Admin
 
+rotas.post('/avaliacoes', adicionarAvaliacao); // Adicionar avaliação
+rotas.get('/produtos/:produtoID/avaliacoes', listarAvaliacoes); // id_usuario nao esta no corpo??
+rotas.delete('/avaliacoes/:avaliacaoID', deleteAvaliacao);
+
 rotas.post('/carrinho', adicionarAoCarrinho); // Adicionar ao carrinho
 rotas.get('/carrinho', listarCarrinho);       // Listar itens do carrinho
 rotas.delete('/carrinho', removerDoCarrinho); // Remover item do carrinho
