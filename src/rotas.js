@@ -18,7 +18,6 @@ rotas.delete('/produtos', deletarProduto) // Admin
 rotas.get('/transacao', listarTransacao) // User and Admin
 rotas.get('/transacao/:id', detalharTransacao) // User and Admin
 rotas.post('/transacao', cadastrarTransacao) // User and Admin
-rotas.delete('/transacao/:id', excluirTransacao) // Admin
 rotas.put('/transacao/:id', atualizarTransacao) // Admin
 
 
