@@ -1,7 +1,7 @@
 {
   "name": "desafio",
   "version": "1.0.0",
-  "description": "",
+  "description": "Projeto 7th período Ciencia da Computação - Cruzeiro do Sul - API para o site de venda de café - Conexão com banco de dados e end points para as funções",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,6 +17,6 @@
     "pg": "^8.11.5"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.7"
   }
 }

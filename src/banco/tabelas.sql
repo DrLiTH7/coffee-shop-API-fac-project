@@ -1,6 +1,6 @@
 CREATE DATABASE coffeemuchobom;
 
-CREATE TABLE usuario (
+CREATE TABLE usuarios (
     id serial primary key,
     nome varchar(100) not null,
     telefone varchar(15),

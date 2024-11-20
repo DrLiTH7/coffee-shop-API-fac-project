@@ -25,7 +25,7 @@ const cadastrarUsuario = async (req, res) => {
       return res.status(400).json({ mensagem: "Os campos nome, email e senha são obrigatórios." });
     }
 
-    const verificarEmail = await conexao.query("SELECT * FROM usuario WHERE email = $1", [email]);
+    const verificarEmail = await conexao.query("SELECT * FROM usuarios WHERE email = $1", [email]);
 
     if (verificarEmail.rowCount > 0) {
       return res.status(401).json({ mensagem: "Já existe usuário cadastrado com o e-mail informado." });
@@ -34,7 +34,7 @@ const cadastrarUsuario = async (req, res) => {
     const senhaCriptografada = await bcrypt.hash(senha, 10);
 
     const query = `
-      INSERT INTO usuario (
+      INSERT INTO usuarios (
         nome, telefone, email, rua, numero_casa, bairro, cidade, estado, cep, complemento, senha
       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
       RETURNING id, nome, telefone, email, rua, numero_casa, bairro, cidade, estado, cep, complemento
