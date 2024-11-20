@@ -2,7 +2,7 @@ const express = require('express');
 const rotas = express();
 const verificaLogin = require('./autenticacao')
 const { cadastrarUsuario, login, logout, atualizarUsuario, detalharUsuario } = require('./controladores/usuario');
-const { listarTransacao, cadastrarTransacao, excluirTransacao, detalharTransacao, listarProdutos, adicionarProduto, deletarProduto, atualizarTransacao } = require('./controladores/transacao');
+const { listarTransacao, cadastrarTransacao, detalharTransacao, listarProdutos, adicionarProduto, deletarProduto, atualizarTransacao } = require('./controladores/transacao');
 const { adicionarAvaliacao, listarAvaliacoes,  deleteAvaliacao } = require('./controladores/avaliacao');
 const { adicionarAoCarrinho,listarCarrinho, removerDoCarrinho   } = require('./controladores/carrinho');
 
