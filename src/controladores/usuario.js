@@ -3,9 +3,10 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const senhaJwt = require("../secreto");
 const { validarCampos } = require("./utilitarios");
-const emailService = require("../emailService")
+const enviarEmail = require("../emailService")
 
 const cadastrarUsuario = async (req, res) => {
+  console.log(req)
   const { 
     nome, 
     telefone, 
@@ -58,7 +59,7 @@ const cadastrarUsuario = async (req, res) => {
 
     const usuario = rows[0];
 
-    emailService(
+    enviarEmail(
       email,"Bem vindo à Cafeteria Gostinho de Café", 
       `
       Bem vindo, ${nome}!
